@@ -69,7 +69,7 @@ function (df, keepcpgs.hannum=TRUE, showStatusHannum=TRUE)
         vector.df$Est.Age[i] <- sum(vector.df[i, 1:(ncol(vector.df) - 
             3)])
         if (showStatusHannum) {
-            message("Hannum Age Est. Status: Finished sample ",i," or ",round(100 * (i/nrow(vector.df)), 3),"%")
+            message("Hannum Age Est. Status: Finished sample ",i," or ",round(100*(i/nrow(vector.df)),3),"%")
         }
     }
     dfhan <- data.frame(Hannum.Est = vector.df$Est.Age)
