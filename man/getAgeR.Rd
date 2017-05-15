@@ -76,7 +76,8 @@ Sean K Maden
 \examples{
 # require(wateRmelon); data(melon)
 bval <- betas(melon)
-est.ages <- getAgeR(bval,epitoc=TRUE,horvath=TRUE,hannum=TRUE,drift=FALSE,showStatus=TRUE)
+est.ages <- getAgeR(bval,epitoc=TRUE,horvath=TRUE,hannum=TRUE,drift=FALSE,showStatusHannum=TRUE,
+                    keepcpgs.epitoc=TRUE,keepcpgs.hannum=TRUE,keepres=FALSE,chrage=NULL)
 
 ## The function is currently defined as
 getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,driftcg,chrage,
