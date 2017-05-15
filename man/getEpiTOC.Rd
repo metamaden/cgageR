@@ -58,4 +58,5 @@ function (df, keepcpgs.epitoc = TRUE)
     }
     return(return.list)
 }
+}
 \keyword{~models}
