@@ -21,12 +21,12 @@ getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,drift
 
   if(hannum){
     hannout <- getHannumEst(df)
-    returnlist <- append(returnlist,hannout,keepcpgs.hannum=keepcpgs.hannum,showStatusHannum=showStatusHannum)
+    returnlist <- append(returnlist,hannout,keepcpgs.hannum,showStatusHannum)
     names(returnlist)[[length(returnlist)]] <- "Hannum.Clock.Age.Estimates"
   }
 
   if(drift){
-    driftout <- getDrift(df,driftcg,chrage,keepres=keepres)
+    driftout <- getDrift(df,driftcg,chrage,keepres)
     names(returnlist)[[length(returnlist)]] <- "Drift.Age.Estimates"
   }
   message("Age estimation complete. Returning..")
