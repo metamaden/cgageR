@@ -8,7 +8,7 @@ Wrapper to retrieve any of various age estimates from methylation array data.
 Use up to four methods to estimate sample age based on Beta-value methylation data.
 }
 \usage{
-getAgeR(df, epitoc=TRUE, horvath=TRUE, hannum=TRUE, drift=TRUE, driftcg, chrage, showStatusHannum=TRUE, keepres=FALSE,keepcpgs.hannum=TRUE,
+getAgeR(df, epitoc=FALSE, horvath=FALSE, hannum=FALSE, drift=FALSE, driftcg=NULL, chrage=NULL, showStatusHannum=FALSE, keepres=FALSE,keepcpgs.hannum=TRUE,
        keepcpgs.epitoc=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
