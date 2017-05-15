@@ -11,7 +11,7 @@ getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,
   }
 
   if(horvath){
-    require(wateRmelon)
+    suppressMessages(require(wateRmelon))
     message("Getting Horvath age estimates...")
     horvout <- as.data.frame(agep(df)); colnames(horvout)<-"Horvath.Est"
     returnlist <- append(returnlist,list(horvout))
