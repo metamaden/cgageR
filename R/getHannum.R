@@ -1,4 +1,4 @@
-getHannumEst <- function(df, keeptxt=TRUE, showStatus=TRUE){
+getHannumEst <- function(df, keepcpgs.hannum, showStatusHannum){
   message("Initializing Hannum Clock age estimates...")
 
   hcgs <- hannumModel$marker;
@@ -14,16 +14,16 @@ getHannumEst <- function(df, keeptxt=TRUE, showStatus=TRUE){
       vector.df[i,j]<-df[cgi,i]*hcgs.weighti
     }
     vector.df$Est.Age[i] <- sum(vector.df[i,1:(ncol(vector.df)-3)])
-    if(showStatus){
+    if(showStatusHannum){
       message("Hannum Age Est. Status: Finished sample ",i," or ",round(100*(i/nrow(vector.df)),3),"%")
     }
   }
   dfhan <- data.frame(Hannum.Est=vector.df$Est.Age)
   return.list <- list(dfhan); names(return.list)<-"Hannum.Clock.Est"
 
-  if(keeptxt){
+  if(keepcpgs.hannum){
     return.list <- append(return.list,list(rownames(df[rownames(df) %in% hcgs,])))
-    names(return.list)[[length(return.list)]] <- "Available Hannum Clock CpGs"
+    names(return.list)[[length(return.list)]] <- "Hannum.CpGs.Used"
   }
   return(return.list)
 }
