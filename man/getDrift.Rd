@@ -93,3 +93,5 @@ function(df, driftcg,chrage,keeptxt=TRUE,showStatus=TRUE,keepres=TRUE){
 
 }
 
+}
+\keyword{~models}
