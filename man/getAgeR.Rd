@@ -114,3 +114,5 @@ getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,drift
   message("Age estimation complete. Returning..")
 return(returnlist)
 }
+}
+\keyword{~models}
