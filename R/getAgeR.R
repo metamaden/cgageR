@@ -4,8 +4,8 @@ getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,drift
 
   if(epitoc){
     message("Getting epiTOC age estimates...")
-    tocout <- getEpiTOC(df)
-    returnlist <- append(returnlist,tocout,keepcpgs.epitoc=keepcpgs.epitoc)
+    tocout <- getEpiTOC(df,keepcpgs.epitoc)
+    returnlist <- append(returnlist,tocout)
     names(returnlist)[[length(returnlist)]] <- "epiTOC.Age.Estimates"
     message("Done! Continuing...")
   }
