@@ -1,4 +1,4 @@
-getDrift <- function(df, driftcg,chrage,keeptxt=TRUE,showStatus=TRUE,keepres=TRUE){
+getDrift <- function(df, driftcg,chrage,keeptxt=TRUE,showStatus=TRUE,keepres){
   # note: chrage sample age order must correspond to order of columns in df
   message("Beginning Drift CpG residuals calculations...")
 
