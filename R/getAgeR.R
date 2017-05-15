@@ -1,5 +1,5 @@
-getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,driftcg,chrage,
-                    keepres=FALSE,showStatusHannum=TRUE,keepcpgs.epitoc=TRUE,keepcpgs.hannum=TRUE){
+getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,driftcg,chrage,keepres=FALSE,
+                    showStatusHannum=TRUE,keepcpgs.epitoc=TRUE,keepcpgs.hannum=TRUE,keepcpgs.horvath=TRUE){
   returnlist <- list()
 
   if(epitoc){
@@ -14,6 +14,11 @@ getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,drift
     suppressMessages(require(wateRmelon))
     message("Getting Horvath age estimates...")
     horvout <- as.data.frame(agep(df)); colnames(horvout)<-"Horvath.Est"
+    if(keepcpgs.horvath){
+      int.horvath <- intersect(rownames(df),HorvathLongCGlist[,1])
+      horvout <- list(horvout,list(int.horvath))
+      names(horvout)[[2]] <- "Horvath.CpGs.Used"
+    }
     returnlist <- append(returnlist,list(horvout))
     names(returnlist)[[length(returnlist)]] <- "HorvathClock.output"
     message("Done! Continuing...")
