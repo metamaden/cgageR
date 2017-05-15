@@ -1,4 +1,4 @@
-getDrift <- function(df, driftcg,chrage,keeptxt=TRUE,showStatus=TRUE,keepres){
+getDrift <- function(df, driftcg,chrage,showStatusDrift=TRUE,keepres=FALSE){
   # note: chrage sample age order must correspond to order of columns in df
   message("Beginning Drift CpG residuals calculations...")
 
@@ -7,7 +7,7 @@ getDrift <- function(df, driftcg,chrage,keeptxt=TRUE,showStatus=TRUE,keepres){
   for(i in 1:nrow(dfdrift)){
     reslist[[i]] <- lm(dfdrift[i,]~chrage)$residuals
     names(reslist)[i] <- rownames(dfdrift)[i]
-    if(showStatus){
+    if(showStatusDrift){
       message("Drift Residuals Status: finished ",i," or ",round((100*(i/nrow(dfdrift))),3),"%.")
     }
   }
