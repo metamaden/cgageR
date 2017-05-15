@@ -5,7 +5,7 @@ getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,drift
   if(epitoc){
     message("Getting epiTOC age estimates...")
     tocout <- getEpiTOC(df)
-    returnlist <- append(returnlist,tocout,keepcpgs.epitoc)
+    returnlist <- append(returnlist,tocout,keepcpgs.epitoc=keepcpgs.epitoc)
     names(returnlist)[[length(returnlist)]] <- "epiTOC.Age.Estimates"
     message("Done! Continuing...")
   }
@@ -21,14 +21,15 @@ getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,drift
 
   if(hannum){
     hannout <- getHannumEst(df)
-    returnlist <- append(returnlist,hannout,keepcpgs.hannum,showStatusHannum)
+    returnlist <- append(returnlist,hannout,keepcpgs.hannum=keepcpgs.hannum,showStatusHannum=showStatusHannum)
     names(returnlist)[[length(returnlist)]] <- "Hannum.Clock.Age.Estimates"
   }
 
   if(drift){
-    driftout <- getDrift(df,driftcg,chrage,keepres)
+    driftout <- getDrift(df,driftcg,chrage,keepres=keepres)
     names(returnlist)[[length(returnlist)]] <- "Drift.Age.Estimates"
   }
   message("Age estimation complete. Returning..")
-return(returnlist)
+
+  return(returnlist)
 }
