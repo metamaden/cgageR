@@ -1,5 +1,5 @@
 getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,
-                    driftcg,chrage,showStatus=TRUE){
+                    driftcg,chrage,keepres=FALSE,showStatus=TRUE){
   returnlist <- c()
 
   if(epitoc){
