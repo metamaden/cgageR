@@ -82,3 +82,4 @@ function (df, keepcpgs.hannum=TRUE, showStatusHannum=TRUE)
     }
     return(return.list)
 }
+\keyword{~models}
