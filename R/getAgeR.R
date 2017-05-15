@@ -1,6 +1,6 @@
 getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,driftcg,chrage,
                     keepres=FALSE,showStatusHannum=TRUE,keepcpgs.epitoc=TRUE,keepcpgs.hannum=TRUE){
-  returnlist <- c()
+  returnlist <- list()
 
   if(epitoc){
     message("Getting epiTOC age estimates...")
