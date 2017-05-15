@@ -8,17 +8,17 @@ Get sample age estimates using Hannum CpG Methylation Clock model.
 Uses methylation and coefficients at specified CpGs to estimate sample age as described in Hannum et al 2013.
 }
 \usage{
-getHannum(df, keeptxt=TRUE, showStatus=TRUE)
+getHannum(df, keepcpgs.hannum=TRUE, showStatusHannum=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{df}{
 Beta-value data frame, with samples as columns and markers as rows.
 }
-\item{keeptxt}{
+\item{keepcpgs.hannum}{
 Wether to retain list of CpGs used (model CpGs available in provided df).
 }
-\item{showStatus}{
+\item{showStatusHannum}{
 Whether to display detailed status of age estimate calculations.
 }
 }
@@ -48,16 +48,39 @@ Sean Maden
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
 
 ## The function is currently defined as
-function (x)
+function (df, keepcpgs.hannum, showStatusHannum) 
 {
-  }
+    message("Initializing Hannum Clock age estimates...")
+    hcgs <- hannumModel$marker
+    int.hcgs <- rownames(df[rownames(df) %in% hcgs, ])
+    vector.df <- as.data.frame(matrix(nrow = ncol(df), ncol = (length(int.hcgs) + 
+        1)))
+    colnames(vector.df) <- c(int.hcgs, "Est.Age")
+    rownames(vector.df) <- colnames(df)
+    for (i in 1:nrow(vector.df)) {
+        for (j in 1:(ncol(vector.df) - 1)) {
+            cgi <- colnames(vector.df)[j]
+            hcgs.weighti <- hannumModel[hannumModel$marker == 
+                cgi, ]$coefficient
+            vector.df[i, j] <- df[cgi, i] * hcgs.weighti
+        }
+        vector.df$Est.Age[i] <- sum(vector.df[i, 1:(ncol(vector.df) - 
+            3)])
+        if (showStatusHannum) {
+            message("Hannum Age Est. Status: Finished sample ", 
+                i, " or ", round(100 * (i/nrow(vector.df)), 3), 
+                "%")
+        }
+    }
+    dfhan <- data.frame(Hannum.Est = vector.df$Est.Age)
+    return.list <- list(dfhan)
+    names(return.list) <- "Hannum.Clock.Est"
+    if (keepcpgs.hannum) {
+        return.list <- append(return.list, list(rownames(df[rownames(df) %in% 
+            hcgs, ])))
+        names(return.list)[[length(return.list)]] <- "Hannum.CpGs.Used"
+    }
+    return(return.list)
 }
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
-\keyword{ ~kwd1 }% use one of  RShowDoc("KEYWORDS")
-\keyword{ ~kwd2 }% __ONLY ONE__ keyword per line
