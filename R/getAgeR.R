@@ -1,18 +1,3 @@
-# Hello, world!
-#
-# This is an example function named 'hello'
-# which prints 'Hello, world!'.
-#
-# You can learn more about package authoring with RStudio at:
-#
-#   http://r-pkgs.had.co.nz/
-#
-# Some useful keyboard shortcuts for package authoring:
-#
-#   Build and Reload Package:  'Ctrl + Shift + B'
-#   Check Package:             'Ctrl + Shift + E'
-#   Test Package:              'Ctrl + Shift + T'
-
 getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,
                     driftcg,chrage,showStatus=TRUE){
   returnlist <- c()
@@ -35,7 +20,6 @@ getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,
   }
 
   if(hannum){
-    require(wateRmelon)
     hannout <- getHannumEst(df)
     returnlist <- append(returnlist,hannout)
     names(returnlist)[[length(returnlist)]] <- "Hannum.Clock.Age.Estimates"
