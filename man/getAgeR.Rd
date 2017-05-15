@@ -8,7 +8,7 @@ Wrapper to retrieve any of various age estimates from methylation array data.
 Use up to four methods to estimate sample age based on Beta-value methylation data.
 }
 \usage{
-getAgeR(df, epitoc=TRUE, horvath=TRUE, hannum=TRUE, drift=TRUE, driftcg, chrage, showStatus=TRUE)
+getAgeR(df, epitoc=TRUE, horvath=TRUE, hannum=TRUE, drift=TRUE, driftcg, chrage, showStatus=TRUE, keepres=FALSE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -32,6 +32,9 @@ List of drifting CpG marker IDs to use if drift is TRUE.
 }
 \item{chrage}{
 Numeric vector of chronologic (patient) age, in same order as columns in df.
+}
+  \item{keepres}{
+Whether to retain residuals for individual drift CpGs.
 }
 }
 \value{
@@ -67,7 +70,7 @@ est.ages <- getAgeR(bval,epitoc=TRUE,horvath=TRUE,hannum=TRUE,drift=FALSE,showSt
 
 ## The function is currently defined as
 getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,
-                    driftcg,chrage,showStatus=TRUE){
+                    driftcg,chrage,keepres=FALSE,showStatus=TRUE){
   returnlist <- c()
 
   if(epitoc){
@@ -79,7 +82,7 @@ getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,
   }
 
   if(horvath){
-    require(wateRmelon)
+    suppressMessages(require(wateRmelon))
     message("Getting Horvath age estimates...")
     horvout <- as.data.frame(agep(df)); colnames(horvout)<-"Horvath.Est"
     returnlist <- append(returnlist,list(horvout))
@@ -88,15 +91,14 @@ getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,
   }
 
   if(hannum){
-    require(wateRmelon)
     hannout <- getHannumEst(df)
     returnlist <- append(returnlist,hannout)
     names(returnlist)[[length(returnlist)]] <- "Hannum.Clock.Age.Estimates"
   }
 
   if(drift){
-    driftout <- getDrift(df,driftcg,chrage)
-    names(returnlist)[[length(returnlist)]] <- "Drift.Age.Est."
+    driftout <- getDrift(df,driftcg,chrage,keepres)
+    names(returnlist)[[length(returnlist)]] <- "Drift.Age.Estimates"
   }
   message("Age estimation complete. Returning..")
 return(returnlist)
