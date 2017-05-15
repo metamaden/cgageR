@@ -46,6 +46,10 @@ Whether to retain list of CpGs from epiTOC used for calculation.
 \item{keepcpgs.hannum}{
 Whether to retain list of CpGs from Hannum clock used for calculation.
 }
+\item{keepcpgs.horvath}{
+Whether to retain list of CpGs from Horvath clock used for calculation.
+}
+       
 }
 \value{
 Returns a list of specified age estimates and affiliated output.
