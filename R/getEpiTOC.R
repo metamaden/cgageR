@@ -7,7 +7,7 @@ getEpiTOC <- function(df,keepcgs.epitoc){
   message("Number of available epiTOC CpGs: ",length(common.v),"/",length(EpiTOCcpgs),".",sep="")
 
   if(keepcpgs.epitoc){
-    return.list <- append(return.list,common.v)
+    return.list <- append(return.list,list(common.v))
     names(return.list)[[length(return.list)]] <- "Epitoc.CpGs.Used"
   }
   return(return.list)
