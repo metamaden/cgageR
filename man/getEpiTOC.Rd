@@ -8,15 +8,15 @@ Estimate methylation-based age using EpiTOC algorithm.
 Uses the epiTOC algorithm described in Yang et al 2016.
 }
 \usage{
-getEpiTOC(df,keeptxt=TRUE)
+getEpiTOC(df,keepcpgs.epitoc=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{df}{
 Beta-value dataframe for calculation of age estimation.
 }
-\item{keeptxt}{
-Whether to retain info on available CpGs.
+\item{keepcpgs.epitoc}{
+Whether to retain EpiTOC CpGs used in calculation.
 }
 }
 \details{
@@ -41,23 +41,20 @@ Yang et al. "Correlation of an epigenetic mitotic clock with cancer risk." Genom
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
 ## The function is currently defined as
-function(df,keeptxt=TRUE){
-  common.v <- intersect(rownames(df),EpiTOCcpgs);
-  map.idx <- match(common.v,rownames(df));
-  return.df <- data.frame(EpiTOC.Est=colMeans(df[map.idx,]));
-  return.list <- list(return.df); names(return.list) <- "Epitoc.Est"
-
-  if(keeptxt){
-    txtepitoc <- paste("Number of available epiTOC CpGs: ",length(common.v),"/",length(EpiTOCcpgs),".",sep="")
-    print(txtepitoc);
-    return.list <- append(return.list,txtepitoc)
-    names(return.list)[[length(return.list)]] <- "info"
-  }
-
-  return(return.list)
+function (df, keepcpgs.epitoc = TRUE) 
+{
+    common.v <- intersect(rownames(df), EpiTOCcpgs)
+    map.idx <- match(common.v, rownames(df))
+    return.df <- data.frame(EpiTOC.Est = colMeans(df[map.idx, 
+        ]))
+    return.list <- list(return.df)
+    names(return.list) <- "EpiTOC.Est"
+    message("Number of available epiTOC CpGs: ", length(common.v), 
+        "/", length(EpiTOCcpgs), ".", sep = "")
+    if (keepcpgs.epitoc) {
+        return.list <- append(return.list, list(common.v))
+        names(return.list)[[length(return.list)]] <- "Epitoc.CpGs.Used"
+    }
+    return(return.list)
 }
