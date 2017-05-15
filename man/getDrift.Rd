@@ -49,7 +49,7 @@ function(df, driftcg,chrage,showStatusDrift=TRUE,keepres=FALSE){
     reslist[[i]] <- lm(dfdrift[i,]~chrage)$residuals
     names(reslist)[i] <- rownames(dfdrift)[i]
     if(showStatusDrift){
-      message("Drift Residuals Status: finished ",i," or ",round((100*(i/nrow(dfdrift))),3),"%.")
+#      message("Drift Residuals Status: finished ",i," or ",round((100*(i/nrow(dfdrift))),3),"%.")
     }
   }
 
