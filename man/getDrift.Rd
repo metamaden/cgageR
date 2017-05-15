@@ -8,11 +8,11 @@ Mean of residuals from drifting CpGs.
 Calculate mean of residuals from user-specified drifting CpGs.
 }
 \usage{
-getDrift(x)
+getDrift(df, driftcg,chrage,showStatusDrift=TRUE,keepres=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
-  \item{df}{
+\item{df}{
 Beta-value data frame, where columns are samples and rows are markers.
 }
 \item{driftcg}{
@@ -21,10 +21,7 @@ List of drifting CpGs for which to calculate residuals.
 \item{chrage}{
 Sample chronological (patient) age, in same order as columns in df.
 }
-\item{keeptxt}{
-Whether to retain info on CpGs used in calculation.
-}
-\item{showStatus}{
+\item{showStatusDrift}{
 Whether to show detailed output of calculation status.
 }
 \item{keepres}{
@@ -32,35 +29,17 @@ Whether to retain CpG-level residuals used in calculation of mean.
 }
 }
 
-df, driftcg,chrage,keeptxt=TRUE,showStatus=TRUE,keepres=TRUE
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
 \value{
 Returns age estimate and specified additional information.
 }
-\references{
-%% ~put references to the literature/web site here ~
-}
+
 \author{
 Sean K Maden
 }
-\note{
-%%  ~~further notes~~
-}
 
-%% ~Make other sections like Warning with \section{Warning }{....} ~
-
-\seealso{
-%% ~~objects to See Also as \code{\link{help}}, ~~~
-}
 \examples{
-##---- Should be DIRECTLY executable !! ----
-##-- ==>  Define data, use random,
-##--	or do  help(data=index)  for the standard data sets.
-
 ## The function is currently defined as
-function(df, driftcg,chrage,keeptxt=TRUE,showStatus=TRUE,keepres=TRUE){
+function(df, driftcg,chrage,showStatusDrift=TRUE,keepres=FALSE){
   # note: chrage sample age order must correspond to order of columns in df
   message("Beginning Drift CpG residuals calculations...")
 
@@ -69,8 +48,8 @@ function(df, driftcg,chrage,keeptxt=TRUE,showStatus=TRUE,keepres=TRUE){
   for(i in 1:nrow(dfdrift)){
     reslist[[i]] <- lm(dfdrift[i,]~chrage)$residuals
     names(reslist)[i] <- rownames(dfdrift)[i]
-    if(showStatus){
-      message("Drift Residuals Status: finished ",i," or ",round((100*(i/nrow(dfdrift))),3),"&.")
+    if(showStatusDrift){
+      message("Drift Residuals Status: finished ",i," or ",round((100*(i/nrow(dfdrift))),3),"%.")
     }
   }
 
@@ -88,10 +67,7 @@ function(df, driftcg,chrage,keeptxt=TRUE,showStatus=TRUE,keepres=TRUE){
     return.list <- append(return.list,list(reslist))
     names(return.list)[[length(return.list)]] <- "All.Drift.Residuals"
   }
-
   return(return.list)
-
 }
-
 }
 \keyword{~models}
