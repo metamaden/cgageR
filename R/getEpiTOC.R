@@ -1,4 +1,4 @@
-getEpiTOC <- function(df,keepcgs.epitoc=TRUE){
+getEpiTOC <- function(df,keepcpgs.epitoc=TRUE){
   common.v <- intersect(rownames(df),EpiTOCcpgs);
   map.idx <- match(common.v,rownames(df));
   return.df <- data.frame(EpiTOC.Est=colMeans(df[map.idx,]));
