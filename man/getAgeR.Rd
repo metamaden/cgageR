@@ -9,7 +9,7 @@ Use up to four methods to estimate sample age based on Beta-value methylation da
 }
 \usage{
 getAgeR(df, epitoc=FALSE, horvath=FALSE, hannum=FALSE, drift=FALSE, driftcg=NULL, chrage=NULL, showStatusHannum=FALSE, keepres=FALSE,keepcpgs.hannum=TRUE,
-       keepcpgs.epitoc=TRUE)
+       keepcpgs.epitoc=TRUE,keepcpgs.horvath=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -81,7 +81,8 @@ est.ages <- getAgeR(bval,epitoc=TRUE,horvath=TRUE,hannum=TRUE,drift=FALSE,showSt
 
 ## The function is currently defined as
 getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,driftcg,chrage,
-                    keepres=FALSE,showStatusHannum=TRUE,keepcpgs.epitoc=TRUE,keepcpgs.hannum=TRUE){
+                    keepres=FALSE,showStatusHannum=TRUE,keepcpgs.epitoc=TRUE,keepcpgs.hannum=TRUE,
+                   keepcpgs.horvath=TRUE){
   returnlist <- c()
 
   if(epitoc){
@@ -96,11 +97,16 @@ getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,drift
     suppressMessages(require(wateRmelon))
     message("Getting Horvath age estimates...")
     horvout <- as.data.frame(agep(df)); colnames(horvout)<-"Horvath.Est"
+    if(keepcpgs.horvath){
+      int.horvath <- intersect(rownames(df),HorvathLongCGlist[,1])
+      horvout <- list(horvout,list(int.horvath))
+      names(horvout)[[2]] <- "Horvath.CpGs.Used"
+    }
     returnlist <- append(returnlist,list(horvout))
-    names(returnlist)[[length(returnlist)]] <- "Horvath.Clock.Age.Estimates"
+    names(returnlist)[[length(returnlist)]] <- "HorvathClock.output"
     message("Done! Continuing...")
   }
-
+       
   if(hannum){
     hannout <- getHannumEst(df)
     returnlist <- append(returnlist,hannout,keepcpgs.hannum,showStatusHannum)
