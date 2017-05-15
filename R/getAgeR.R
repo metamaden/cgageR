@@ -27,7 +27,7 @@ getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,
 
   if(drift){
     driftout <- getDrift(df,driftcg,chrage)
-    names(returnlist)[[length(returnlist)]] <- "Drift.Age.Est."
+    names(returnlist)[[length(returnlist)]] <- "Drift.Age.Estimates"
   }
   message("Age estimation complete. Returning..")
 return(returnlist)
