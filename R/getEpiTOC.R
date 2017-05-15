@@ -2,7 +2,7 @@ getEpiTOC <- function(df,keepcgs.epitoc){
   common.v <- intersect(rownames(df),EpiTOCcpgs);
   map.idx <- match(common.v,rownames(df));
   return.df <- data.frame(EpiTOC.Est=colMeans(df[map.idx,]));
-  return.list <- list(return.df); names(return.list) <- "Epitoc.Est"
+  return.list <- list(return.df); names(return.list) <- "EpiTOC.Est"
   
   message("Number of available epiTOC CpGs: ",length(common.v),"/",length(EpiTOCcpgs),".",sep="")
 
