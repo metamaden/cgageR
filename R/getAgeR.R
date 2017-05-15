@@ -16,8 +16,8 @@ getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,drift
     horvout <- as.data.frame(agep(df)); colnames(horvout)<-"Horvath.Est"
     if(keepcpgs.horvath){
       int.horvath <- intersect(rownames(df),HorvathLongCGlist[,1])
-      horvout <- list(horvout,list(int.horvath))
-      names(horvout)[[2]] <- "Horvath.CpGs.Used"
+      horvout <- append(list(horvout),list(int.horvath))
+      names(horvout) <- c("Horvath.Est","Horvath.CpGs.Used")
     }
     returnlist <- append(returnlist,list(horvout))
     names(returnlist)[[length(returnlist)]] <- "HorvathClock.output"
