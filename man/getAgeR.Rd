@@ -8,7 +8,8 @@ Wrapper to retrieve any of various age estimates from methylation array data.
 Use up to four methods to estimate sample age based on Beta-value methylation data.
 }
 \usage{
-getAgeR(df, epitoc=TRUE, horvath=TRUE, hannum=TRUE, drift=TRUE, driftcg, chrage, showStatus=TRUE, keepres=FALSE)
+getAgeR(df, epitoc=TRUE, horvath=TRUE, hannum=TRUE, drift=TRUE, driftcg, chrage, showStatusHannum=TRUE, keepres=FALSE,keepcpgs.hannum=TRUE,
+       keepcpgs.epitoc=TRUE)
 }
 %- maybe also 'usage' for other objects documented here.
 \arguments{
@@ -19,10 +20,10 @@ Beta-value data frame, where columns are samples and rows are markers.
 Uses the epiTOC algorithm to estimate age in terms of mean Beta-value methylation.
 }
 \item{horvath}{
-Uses Horvath's human CpG clock, as implemented in wateRmelon, to estimate sample age.
+Uses Horvaths human CpG clock, as implemented in wateRmelon, to estimate sample age.
 }
 \item{hannum}{
-Uses Hannum's human CpG clock from blood to estimate sample age.
+Uses Hannums human CpG clock from blood to estimate sample age.
 }
 \item{drift}{
 Uses user-provided drift CpG methylation to determine mean of residuals across drifting CpGs.
@@ -33,8 +34,17 @@ List of drifting CpG marker IDs to use if drift is TRUE.
 \item{chrage}{
 Numeric vector of chronologic (patient) age, in same order as columns in df.
 }
-  \item{keepres}{
+\item{showStatusHannum}{
+Whether to display status of Hannum clock calculations.
+}
+\item{keepres}{
 Whether to retain residuals for individual drift CpGs.
+}
+\item{keepcpgs.epitoc}{
+Whether to retain list of CpGs from epiTOC used for calculation.
+}
+\item{keepcpgs.hannum}{
+Whether to retain list of CpGs from Hannum clock used for calculation.
 }
 }
 \value{
@@ -69,14 +79,14 @@ bval <- betas(melon)
 est.ages <- getAgeR(bval,epitoc=TRUE,horvath=TRUE,hannum=TRUE,drift=FALSE,showStatus=TRUE)
 
 ## The function is currently defined as
-getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,
-                    driftcg,chrage,keepres=FALSE,showStatus=TRUE){
+getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,driftcg,chrage,
+                    keepres=FALSE,showStatusHannum=TRUE,keepcpgs.epitoc=TRUE,keepcpgs.hannum=TRUE){
   returnlist <- c()
 
   if(epitoc){
     message("Getting epiTOC age estimates...")
     tocout <- getEpiTOC(df)
-    returnlist <- append(returnlist,tocout)
+    returnlist <- append(returnlist,tocout,keepcpgs.epitoc)
     names(returnlist)[[length(returnlist)]] <- "epiTOC.Age.Estimates"
     message("Done! Continuing...")
   }
@@ -92,7 +102,7 @@ getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,
 
   if(hannum){
     hannout <- getHannumEst(df)
-    returnlist <- append(returnlist,hannout)
+    returnlist <- append(returnlist,hannout,keepcpgs.hannum,showStatusHannum)
     names(returnlist)[[length(returnlist)]] <- "Hannum.Clock.Age.Estimates"
   }
 
