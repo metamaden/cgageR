@@ -18,7 +18,7 @@ getHannumEst <- function(df, keepcpgs.hannum=TRUE, showStatusHannum=FALSE){
       message("Hannum Age Est. Status: Finished sample ",i," or ",round(100*(i/nrow(vector.df)),3),"%")
     }
   }
-  dfhan <- data.frame(Hannum.Est=vector.df$Est.Age)
+  dfhan <- data.frame(Hannum.Est=vector.df$Est.Age); rownames(dfhan)<-colnames(df)
   return.list <- list(dfhan); names(return.list)<-"Hannum.Clock.Est"
 
   if(keepcpgs.hannum){
