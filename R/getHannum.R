@@ -13,7 +13,7 @@ getHannumEst <- function(df, keepcpgs.hannum=TRUE, showStatusHannum=FALSE){
       hcgs.weighti <- hannumModel[hannumModel$marker==cgi,]$coefficient
       vector.df[i,j]<-df[cgi,i]*hcgs.weighti
     }
-    vector.df$Est.Age[i] <- sum(vector.df[i,1:(ncol(vector.df)-3)])
+    vector.df$Est.Age[i] <- sum(vector.df[i,1:(ncol(vector.df)-1)])
     if(showStatusHannum){
       message("Hannum Age Est. Status: Finished sample ",i," or ",round(100*(i/nrow(vector.df)),3),"%")
     }
