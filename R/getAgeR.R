@@ -25,7 +25,7 @@ getAgeR <- function(df,epitoc=FALSE,horvath=FALSE,hannum=FALSE,drift=FALSE,drift
   }
 
   if(hannum){
-    hannout <- getHannumEst(df,keepcpgs.hannum,showStatusHannum)
+    hannout <- getHannum(df,keepcpgs.hannum,showStatusHannum)
     returnlist <- append(returnlist,list(hannout))
     names(returnlist)[[length(returnlist)]] <- "HannumClock.output"
   }
