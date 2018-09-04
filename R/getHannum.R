@@ -1,4 +1,4 @@
-getHannumEst <- function(df, keepcpgs.hannum=TRUE, showStatusHannum=FALSE){
+getHannum <- function(df, keepcpgs.hannum=TRUE, showStatusHannum=FALSE){
   message("Initializing Hannum Clock age estimates...")
 
   hcgs <- hannumModel$marker;
