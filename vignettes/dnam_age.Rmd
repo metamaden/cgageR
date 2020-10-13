@@ -1,0 +1,50 @@
+---
+title: "Get DNAm age"
+output: html_notebook
+---
+
+
+```{r}
+suppressMessages(library(cgageR))
+
+suppressMessages(library(wateRmelon))
+suppressMessages(library(minfiData))
+```
+
+# Example 1 -- Get ages from a MethyLumiSet
+
+```{r}
+melon <- get(data(melon))
+dim(melon)
+class(melon)
+```
+
+Get DNAm Beta-values matrix.
+
+```{r}
+bval <- betas(melon)
+dim(bval)
+```
+
+
+```{r}
+est.ages <- getAgeR(bval,epitoc=TRUE,horvath=TRUE,hannum=TRUE,drift=FALSE,showStatusHannum=TRUE,
+                    keepcpgs.epitoc=TRUE,keepcpgs.hannum=TRUE,keepres=FALSE,chrage=NULL)
+
+```
+
+# Example2 -- Get ages from a MethylSet
+
+```{r}
+```
+
+# Example3 -- Get ages from an RGChannelSet
+
+```{r}
+```
+
+# Session Info
+
+```{r}
+sessionInfo()
+```

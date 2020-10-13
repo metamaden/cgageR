@@ -1,8 +1,9 @@
 getHannum <- function(df, keepcpgs.hannum=TRUE, showStatusHannum=FALSE){
-  message("Initializing Hannum Clock age estimates...")
+  message("getting DNAm age for the Hannum clock...")
 
   hcgs <- hannumModel$marker;
   int.hcgs <- rownames(df[rownames(df) %in% hcgs,])
+  if(length(int.hcgs) == 0){stop("no markers detected for this clock.")}
 
   vector.df <- as.data.frame(matrix(nrow=ncol(df),ncol=(length(int.hcgs)+1)))
   colnames(vector.df) <- c(int.hcgs,"Est.Age"); rownames(vector.df)<-colnames(df)
